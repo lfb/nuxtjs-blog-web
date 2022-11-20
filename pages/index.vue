@@ -45,12 +45,11 @@ import { getArticleList } from '@/request/api/article'
 export default {
   name: 'HomeIndex',
   async asyncData(context) {
-    // eslint-disable-next-line camelcase
-    const { id, keyword, category_id, page = 1 } = context.query
+    const { id, keyword, category_id: categoryId, page = 1 } = context.query
 
     const [err, res] = await getArticleList({
       id,
-      category_id,
+      category_id: categoryId,
       keyword,
       page,
       is_category: 1,
@@ -60,11 +59,19 @@ export default {
     if (!err) {
       const isLoad = res.data.data.meta.total_pages > page
       return {
-        isClear: !!keyword || !!category_id,
+        isClear: !!keyword || !!categoryId,
         page,
         isLoad,
-        categoryId: category_id,
+        categoryId,
         article: res.data.data,
+      }
+    }else {
+      return  {
+        isClear:  false,
+        page: 1,
+        isLoad: false,
+        categoryId : "",
+        article: null,
       }
     }
   },
