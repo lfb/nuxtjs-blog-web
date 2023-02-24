@@ -2,36 +2,27 @@
   <div class="wrap">
     <h2 style="text-align: center;">胡桃魔女套圣遗物参考计算方式</h2>
 
-    <div class="item">
-      <label for="JingTong">精通：</label>
-      <el-input id="JingTong" v-model='JingTong'  clearable type="number" placeholder="精通" />
+    <div v-for='item in equipArray' :key='item.key' class="item">
+      <label :for="item.key">{{item.name}}</label>
+      <el-input :id="item.key" v-model='item.value' :placeholder="item.placeholder" clearable type="number"  />
     </div>
 
     <div class="item">
-      <label for="BaoShang">爆伤：</label>
-      <el-input id="BaoShang" v-model='BaoShang' clearable type="number" placeholder="爆伤" />
+      <label for="criticalHitRate" style='color: #2d8cf0'>暴击率</label>
+      <el-input id="criticalHitRate" v-model='criticalHitRate' clearable type="number" placeholder="暴击率" />
     </div>
 
-    <div class="item">
-      <label for="shengMingBaiFenBi">大生命：</label>
-      <el-input id="shengMingBaiFenBi" v-model='shengMingBaiFenBi' clearable type="number" placeholder="生命百分比" />
+    <div v-if='result' class='result-wrap'>
+      <div v-if='result > 9' style='color: red;'>
+        {{errorText}}
+      </div>
+      <div v-else>
+        <p>结果：<strong id="result-text" :style='{color: estimateText.color}'>{{result}}</strong></p>
+        <p>评估：<strong :style='{color: estimateText.color}'>
+          {{estimateText.level}} - {{estimateText.text}}</strong>
+        </p>
+      </div>
     </div>
-
-    <div class="item">
-      <label for="XiaoShengMing">小生命：</label>
-      <el-input id="XiaoShengMing" v-model='XiaoShengMing' clearable type="number" placeholder="小生命" />
-    </div>
-
-
-    <div class="item">
-      <label for="GongJiBaiFenBi">大攻击：</label>
-      <el-input id="GongJiBaiFenBi" v-model='GongJiBaiFenBi' clearable type="number" placeholder="攻击百分比" />
-    </div>
-    <div class="item">
-      <label for="xiaoGongJi">小攻击</label>
-      <el-input id="xiaoGongJi" v-model='xiaoGongJi' clearable type="number" placeholder="小攻击" />
-    </div>
-    <div v-show='result' class='result-wrap'>结果：<strong id="result-text" style='color: #2d8cf0'>{{result}}</strong></div>
 
     <div style='margin-bottom: 12px;'>
       <el-button type="primary" style='width: 100%;' @click.native='submit'>
@@ -45,28 +36,43 @@
       </el-button>
     </div>
 
-    <div style='margin-top: 12px;'>
+    <div class='margin12'>
+      <p>温馨提示：把单个圣遗物的副词条对应填上去即可</p>
+      <div class='temp-img'>
+        <img src='https://cdn.boblog.com/571677159247_.pic.jpg' alt='temp'>
+      </div>
+    </div>
+
+    <div class='margin12'>
+      <strong>暴击头：</strong>
+      <p>平均增伤值＞4，裸蒸发6万多</p>
+      <p>平均增伤值＞5，裸蒸发7万多</p>
+      <p>平均增伤值＞6，裸蒸发8万多</p>
+
+      <strong>爆伤头（精通/生命百分比）：</strong>
+      <p>平均增伤值＞2.4，裸蒸发6万多</p>
+      <p>平均增伤值＞3.4，裸蒸发7万多</p>
+      <p>平均增伤值＞4.4，裸蒸发8万多</p>
+    </div>
+
+    <div class='margin12'>
       参考数据来自于抖音：@殇离 UP主，抖音号：DouYin_Sunle，玩胡桃看他视频就够了~
     </div>
 
-    <p>温馨提示：把单个圣遗物的副词条对应填上去即可</p>
-    <div class='temp-img'>
-      <img src='https://cdn.boblog.com/571677159247_.pic.jpg' alt='temp'>
-    </div>
   </div>
 </template>
 <script>
+import {ATTRIBUTES_MAP as attributesMap, equipArray, LEVEL_TEXT as levelText} from '../lib/hutao'
+
 export default {
   layout: 'hutao',
   data() {
     return {
-      JingTong: '',
-      BaoShang: '',
-      shengMingBaiFenBi: '',
-      XiaoShengMing: '',
-      GongJiBaiFenBi: '',
-      xiaoGongJi: '',
-      result: 0
+      equipArray,
+      criticalHitRate: 0,
+      result: 0,
+      estimateText: {},
+      errorText: '你的输入有误，这个只是用来分辨单个圣遗物好坏的，请重新输入。'
     }
   },
   head() {
@@ -76,41 +82,19 @@ export default {
   },
   methods: {
     submit() {
-      // 精通
-      const JingTong = 23
-      // 生命百分比
-      const shengMingBaiFenBi = 5.8
-      // 小生命
-      const XiaoShengMing = 906
-      // 爆伤
-      const BaoShang = 7.8
-      // 攻击百分比
-      const GongJiBaiFenBi = 5.8
-      // 小攻击
-      const xiaoGongJi =  41
-
-      let result = 0;
-      if (this.JingTong) {
-        result += this.JingTong / JingTong
-      }
-      if (this.shengMingBaiFenBi) {
-        result += this.shengMingBaiFenBi / shengMingBaiFenBi
-      }
-      if (this.XiaoShengMing) {
-        result += this.XiaoShengMing / XiaoShengMing
-      }
-      if (this.BaoShang) {
-        result += this.BaoShang / BaoShang
-      }
-      if (this.GongJiBaiFenBi) {
-        result += this.GongJiBaiFenBi / GongJiBaiFenBi  / 2
-      }
-      if (this.xiaoGongJi) {
-        result += this.xiaoGongJi / xiaoGongJi / 2
-      }
+      const result = this.equipArray.reduce((prev, next) => {
+        const {key, value, isUndivided = false} = next
+        if(value) {
+          if(isUndivided) {
+            return  prev + ( value / attributesMap[key] / 2)
+          }
+          return  prev + (value / attributesMap[key])
+        }
+        return prev
+      }, 0).toFixed(2)
 
       this.result = result
-
+      this.handleEstimate(result)
       if(result) {
         this.$message({
           message: '计算成功！',
@@ -122,21 +106,72 @@ export default {
           type: 'warning'
         });
       }
+    },
+    handleEstimate(result) {
+      // 暴击率=0
+      if(this.criticalHitRate <= 0) {
+        this.handleCriticalHitRate(7.5)
+      }
 
+      // 3.9≥暴击率≥2.7：
+      if(this.criticalHitRate >= 2.7 && this.criticalHitRate <= 3.9) {
+        this.handleCriticalHitRate(7)
+      }
+
+      // 7.8≥暴击率≥5.4：
+      if(this.criticalHitRate >= 5.4 && this.criticalHitRate <= 7.8) {
+        this.handleCriticalHitRate(6)
+      }
+
+      // 11.7≥暴击率≥8.2：
+      if(this.criticalHitRate >= 8.2 && this.criticalHitRate <= 11.7) {
+        this.handleCriticalHitRate(5)
+
+      }
+
+      // 15.6≥暴击率＞11.7：
+      if(this.criticalHitRate >= 11.7 && this.criticalHitRate <= 15.6) {
+        this.handleCriticalHitRate(4)
+      }
+
+      // 19.7≥暴击率＞15.6：
+      if(this.criticalHitRate >= 15.6 && this.criticalHitRate <= 19.7) {
+        this.handleCriticalHitRate(3)
+      }
+
+      // 23≥暴击率＞19.7：
+      if(this.criticalHitRate >= 19.7 && this.criticalHitRate <= 23) {
+        this.handleCriticalHitRate(2)
+      }
+    },
+    handleCriticalHitRate(value) {
+      const result = this.result
+      if(result >= value) {
+        this.estimateText = levelText.SSS
+      }
+
+      if(result >= value - 1 && result < value) {
+        this.estimateText = levelText.S
+      }
+
+      if(result >= value - 2 && result < value - 1) {
+        this.estimateText = levelText.A
+      }
+
+      if(result < value - 2 || result === 0) {
+        this.estimateText = levelText.C
+      }
     },
     reset() {
-      this.JingTong= ''
-      this.BaoShang= ''
-      this.shengMingBaiFenBi= ''
-      this.XiaoShengMing= ''
-      this.GongJiBaiFenBi= ''
-      this.xiaoGongJi=''
-      this.result=0
+      this.result = 0
+      this.criticalHitRate = 0
+      this.estimateText = {}
+      this.equipArray.forEach(item => item.value = '')
       this.$message({
         message: '重置成功！',
         type: 'success'
       });
-    },
+    }
   }
 }
 
@@ -182,6 +217,9 @@ img {
   .temp-img {
     width: 100%;
   }
+}
+.margin12 {
+  margin: 12px 0;
 }
 
 </style>
