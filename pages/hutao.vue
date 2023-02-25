@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <h2 style="text-align: center;">胡桃魔女套圣遗物参考计算方式</h2>
+    <h1 class='title'>原神胡桃圣遗物词条收益计算</h1>
 
     <div v-for='item in equipArray' :key='item.key' class="item">
       <label :for="item.key">{{item.name}}</label>
@@ -13,14 +13,15 @@
     </div>
 
     <div v-if='result' class='result-wrap'>
-      <div v-if='result > 9' style='color: red;'>
-        {{errorText}}
-      </div>
-      <div v-else>
-        <p>结果：<strong id="result-text" :style='{color: estimateText.color}'>{{result}}</strong></p>
-        <p>评估：<strong :style='{color: estimateText.color}'>
-          {{estimateText.level}} - {{estimateText.text}}</strong>
-        </p>
+      <div>
+        <div :style='{color: estimateText.color}'>
+          <strong>
+           评估结果：{{result}}&nbsp;{{estimateText.level}} 级
+            <i v-for='star in estimateText.star' :key='star' style='color: #ff9900;' class='el-icon-star-on'></i>
+          </strong>
+          <p v-if='result > 9' style='color: red;'>{{errorText}}</p>
+          <p v-else>{{estimateText.text}}</p>
+        </div>
       </div>
     </div>
 
@@ -37,13 +38,22 @@
     </div>
 
     <div class='margin12'>
-      <p>温馨提示：把单个圣遗物的副词条对应填上去即可</p>
-      <div class='temp-img'>
-        <img src='https://cdn.boblog.com/571677159247_.pic.jpg' alt='temp'>
+      <div class='sub-title'><i class='el-icon-info'></i> 使用前建议先阅读以下内容：</div>
+      <div class='temp-wrap'>
+        <div class='temp-img'>
+          <img src='https://cdn.boblog.com/571677159247_.pic.jpg' alt='原神胡桃圣遗物示例图'>
+        </div>
+        <div class='temp-text'>
+          <div>温馨提示：是把单个圣遗物的<strong style='color: red;'>[副词条]</strong>对应填上去即可</div>
+          <p>生命沙、精通沙、爆伤头、精通头、生命头，因为主词条含有S级增伤词条，副词条会比其他圣遗物少一条，所以有细微的变动，可以理解为S级评分，就已经是最顶级的圣遗物了</p>
+        </div>
       </div>
     </div>
 
     <div class='margin12'>
+      <div class='sub-title'>
+        以下是一精专武标准，决斗枪减2万伤害，匣里减1万伤害，满命满精加2万伤害
+      </div>
       <strong>暴击头：</strong>
       <p>平均增伤值＞4，裸蒸发6万多</p>
       <p>平均增伤值＞5，裸蒸发7万多</p>
@@ -55,9 +65,11 @@
       <p>平均增伤值＞4.4，裸蒸发8万多</p>
     </div>
 
-    <div class='margin12'>
-      参考数据来自于抖音：@殇离 UP主，抖音号：DouYin_Sunle，玩胡桃看他视频就够了~
+    <div class='margin12 author-wrap'>
+      <h2 class='author'>作者：@Bobby Liang</h2>，参考数据来自于抖音：@殇离 UP主，抖音号：DouYin_Sunle，玩胡桃看他视频就够了~
     </div>
+
+
 
   </div>
 </template>
@@ -72,12 +84,16 @@ export default {
       criticalHitRate: 0,
       result: 0,
       estimateText: {},
-      errorText: '你的输入有误，这个只是用来分辨单个圣遗物好坏的，请重新输入。'
+      errorText: '你的输入的数据有误，这个只是用来分辨单个圣遗物好坏的，请重新输入。'
     }
   },
   head() {
     return {
-      title: '原神胡桃魔女圣遗物参考',
+      title: '原神胡桃圣遗物词条收益计算',
+      meta: [
+        { name: 'keywords', content: '原神，胡桃，圣遗物，魔女套，绝缘套，追忆套，圣遗物增伤计算' },
+        { name: 'description', content: '原神胡桃圣遗物增伤值计算算法' },
+      ],
     }
   },
   methods: {
@@ -181,6 +197,10 @@ export default {
   width: 50%;
   margin: 0 auto;
 }
+.title {
+  font-size: 30px;
+  text-align: center;
+}
 .item {
   display: flex;
   margin: 24px 0;
@@ -199,13 +219,36 @@ export default {
   text-align: center;
 }
 
-.temp-img {
-  width: 42%;
-  margin: 24px 0;
+.sub-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 18px 0;
 }
+.temp-wrap {
+  display: flex;
+  width: 100%;
+}
+
+.temp-img {
+  flex: 6;
+}
+.temp-text {
+  flex: 4;
+  line-height: 2;
+  margin-left: 24px;
+}
+
 
 img {
   width: 100%;
+}
+.author-wrap {
+  font-size: 14px;
+}
+.author {
+  display: inline-block;
+  line-height: 1;
+  font-size: 14px;
 }
 
 @media screen and (max-width: 540px) {
@@ -214,9 +257,21 @@ img {
     margin: 0 auto;
   }
 
-  .temp-img {
-    width: 100%;
+
+  .temp-wrap {
+    flex-direction: column;
   }
+  .temp-img {
+    flex: 1;
+  }
+  .temp-text {
+    flex: 1;
+    margin-left: 0;
+  }
+  .title {
+    font-size: 24px;
+  }
+
 }
 .margin12 {
   margin: 12px 0;
