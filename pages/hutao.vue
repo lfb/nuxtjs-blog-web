@@ -41,7 +41,7 @@
       <div class='sub-title'><i class='el-icon-info'></i> 使用前建议先阅读以下内容：</div>
       <div class='temp-wrap'>
         <div class='temp-img'>
-          <img src='https://cdn.boblog.com/571677159247_.pic.jpg' alt='原神胡桃圣遗物示例图'>
+          <img src='https://cdn.boblog.com/571677159247_.pic.jpg' alt='原神胡桃圣遗物示例图' />
         </div>
         <div class='temp-text'>
           <div>温馨提示：是把单个圣遗物的<strong style='color: red;'>[副词条]</strong>对应填上去即可</div>
@@ -63,6 +63,16 @@
       <p>平均增伤值＞2.4，裸蒸发6万多</p>
       <p>平均增伤值＞3.4，裸蒸发7万多</p>
       <p>平均增伤值＞4.4，裸蒸发8万多</p>
+    </div>
+
+    <div class='margin12'>
+      <strong class='sub-title'>小程序版本上线啦，保存二维码扫描或者微信小程序搜索【提瓦特大陆小助手】即可使用~</strong>
+      <div>
+        <img class='wxapp-image' src='https://cdn.boblog.com/gh_a6861ef047ae_430.jpg' alt='提瓦特大陆小助手' />
+      </div>
+      <div>
+        <img class='wxapp-image' src='https://cdn.boblog.com/WechatIMG35.jpeg' alt='抖音殇离' />
+      </div>
     </div>
 
     <div class='margin12 author-wrap'>
@@ -232,6 +242,10 @@ export default {
 .temp-img {
   flex: 6;
 }
+.wxapp-image {
+  width: 42%;
+  margin: 12px 0;
+}
 .temp-text {
   flex: 4;
   line-height: 2;
@@ -260,6 +274,9 @@ img {
 
   .temp-wrap {
     flex-direction: column;
+  }
+  .wxapp-image {
+    width: 100%;
   }
   .temp-img {
     flex: 1;
