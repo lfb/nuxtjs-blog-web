@@ -66,9 +66,9 @@
     </div>
 
     <div class='margin12'>
-      <strong class='sub-title'>小程序版本上线啦，保存二维码扫描或者微信小程序搜索【提瓦特大陆小助手】即可使用~</strong>
+      <strong class='sub-title'>小程序版本上线啦，保存二维码扫描或者微信小程序搜索【老婆养成小助手】即可使用~</strong>
       <div>
-        <img class='wxapp-image' src='https://cdn.boblog.com/gh_a6861ef047ae_430.jpg' alt='提瓦特大陆小助手' />
+        <img class='wxapp-image' src='https://cdn.boblog.com/gh_a6861ef047ae_430.jpg' alt='老婆养成小助手' />
       </div>
       <div>
         <img class='wxapp-image' src='https://cdn.boblog.com/WechatIMG35.jpeg' alt='抖音殇离' />
