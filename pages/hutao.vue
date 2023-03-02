@@ -16,7 +16,8 @@
       <div>
         <div :style='{color: estimateText.color}'>
           <strong>
-           评估结果：{{result}}&nbsp;{{estimateText.level}} 级
+            增伤值: {{result}}&nbsp;
+            评分: {{estimateText.level}}级
             <i v-for='star in estimateText.star' :key='star' style='color: #ff9900;' class='el-icon-star-on'></i>
           </strong>
           <p v-if='result > 9' style='color: red;'>{{errorText}}</p>
@@ -45,7 +46,14 @@
         </div>
         <div class='temp-text'>
           <div>温馨提示：是把单个圣遗物的<strong style='color: red;'>[副词条]</strong>对应填上去即可</div>
-          <p>生命沙、精通沙、爆伤头、精通头、生命头，因为主词条含有S级增伤词条，副词条会比其他圣遗物少一条，所以有细微的变动，可以理解为S级评分，就已经是最顶级的圣遗物了</p>
+          <div class="sub-title">精通沙（生命沙、爆伤头）：</div>
+          <div>0暴击率，最高增伤点为7.83，</div>
+          <div>2.7—3.9暴击率，增伤点≥6.5；</div>
+          <div>5.4—7.8暴击率，增伤点≥5.5；</div>
+          <div>8.2—11.7暴击率，增伤点≥4.5；</div>
+          <div>11.7—15.6暴击率，增伤点≥3.5；</div>
+          <div>15.6—19.5暴击率，增伤点≥2.5；</div>
+          <div>19.5—23.3暴击率，增伤点≥1.5。</div>
         </div>
       </div>
     </div>
@@ -78,9 +86,6 @@
     <div class='margin12 author-wrap'>
       <h2 class='author'>作者：@Bobby Liang</h2>，参考数据来自于抖音：@殇离 UP主，抖音号：DouYin_Sunle，玩胡桃看他视频就够了~
     </div>
-
-
-
   </div>
 </template>
 <script>
@@ -161,12 +166,12 @@ export default {
       }
 
       // 19.7≥暴击率＞15.6：
-      if(this.criticalHitRate >= 15.6 && this.criticalHitRate <= 19.7) {
+      if(this.criticalHitRate >= 15.6 && this.criticalHitRate <= 19.5) {
         this.handleCriticalHitRate(3)
       }
 
       // 23≥暴击率＞19.7：
-      if(this.criticalHitRate >= 19.7 && this.criticalHitRate <= 23) {
+      if(this.criticalHitRate >= 19.5 && this.criticalHitRate <= 23.3) {
         this.handleCriticalHitRate(2)
       }
     },
@@ -177,11 +182,11 @@ export default {
       }
 
       if(result >= value - 1 && result < value) {
-        this.estimateText = levelText.S
+        this.estimateText = levelText.SS
       }
 
       if(result >= value - 2 && result < value - 1) {
-        this.estimateText = levelText.A
+        this.estimateText = levelText.S
       }
 
       if(result < value - 2 || result === 0) {
