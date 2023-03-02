@@ -9,10 +9,10 @@
 
     <div class="item">
       <label for="criticalHitRate" style='color: #2d8cf0'>暴击率</label>
-      <el-input id="criticalHitRate" v-model='criticalHitRate' clearable type="number" placeholder="暴击率" />
+      <el-input id="criticalHitRate" v-model='criticalHitRate' clearable type="number" placeholder="暴击率" @input='changeSubmit' />
     </div>
 
-    <div v-if='result' class='result-wrap'>
+    <div v-if='result > 0 || (criticalHitRate > 0 && isSubmit)' class='result-wrap'>
       <div>
         <div :style='{color: estimateText.color}'>
           <strong>
@@ -97,6 +97,7 @@ export default {
     return {
       equipArray,
       criticalHitRate: 0,
+      isSubmit: false,
       result: 0,
       estimateText: {},
       errorText: '你的输入的数据有误，这个只是用来分辨单个圣遗物好坏的，请重新输入。'
@@ -176,6 +177,7 @@ export default {
       }
     },
     handleCriticalHitRate(value) {
+      this.isSubmit = true
       const result = this.result
       if(result >= value) {
         this.estimateText = levelText.SSS
@@ -193,9 +195,13 @@ export default {
         this.estimateText = levelText.C
       }
     },
+    changeSubmit() {
+      this.isSubmit = false
+    },
     reset() {
       this.result = 0
       this.criticalHitRate = 0
+      this.isSubmit = false
       this.estimateText = {}
       this.equipArray.forEach(item => item.value = '')
       this.$message({
