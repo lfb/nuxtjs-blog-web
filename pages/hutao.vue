@@ -180,18 +180,22 @@ export default {
       this.isSubmit = true
       const result = this.result
       if(result >= value) {
+        levelText.SSS.text = `胡桃厨天花板级圣遗物，又称遗物级圣遗物，恭喜你，你的有效词条数已经接近满值，增伤点数极限为 ${ value + 1}。`
         this.estimateText = levelText.SSS
       }
 
       if(result >= value - 1 && result < value) {
+        levelText.SS.text = `极品圣遗物，欧皇专属，很给力的圣遗物，${value - 1} 的增伤值达标，下一阶段需要 ${value} 的增伤值。`
         this.estimateText = levelText.SS
       }
 
       if(result >= value - 2 && result < value - 1) {
+        levelText.S.text = `毕业圣遗物，如果你不是胡桃厨可以休息啦！${value - 2} 的增伤值达标，下一阶段需要 ${value -1} 的增伤值。`
         this.estimateText = levelText.S
       }
 
       if(result < value - 2 || result === 0) {
+        levelText.C.text = `赶快为你的老婆多刷点圣遗物吧，都快穷的吃土了，下一阶段需要 ${value - 2} 的增伤值。`
         this.estimateText = levelText.C
       }
     },
