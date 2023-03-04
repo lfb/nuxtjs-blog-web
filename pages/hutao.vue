@@ -167,12 +167,12 @@ export default {
       }
 
       // 19.7≥暴击率＞15.6：
-      if(this.criticalHitRate >= 15.6 && this.criticalHitRate <= 19.5) {
+      if(this.criticalHitRate > 15.6 && this.criticalHitRate <= 19.5) {
         this.handleCriticalHitRate(3)
       }
 
       // 23≥暴击率＞19.7：
-      if(this.criticalHitRate >= 19.5 && this.criticalHitRate <= 23.3) {
+      if(this.criticalHitRate > 19.5 && this.criticalHitRate <= 23.3) {
         this.handleCriticalHitRate(2)
       }
     },
